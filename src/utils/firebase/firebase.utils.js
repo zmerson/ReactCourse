@@ -1,11 +1,18 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import { getAuth, 
+    signInWithRedirect, 
+    signInWithPopup, GoogleAuthProvider, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    signOut,
+    onAuthStateChanged,} from 'firebase/auth'
 // Your web app's Firebase configuration
 import {
     getFirestore,
     doc, //an instance of the document
     getDoc, //get data inside the document
     setDoc, //set data insid the document
+    
 
 } from 'firebase/firestore'
 
@@ -75,3 +82,15 @@ const firebaseConfig = {
     return await signInWithEmailAndPassword(auth, email, password)
   }
 
+  export const signOutUser = async () => await signOut(auth);
+
+  export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback)
+
+
+  /** onAuthStateChanged creates a listener model using the (callback) in the background.
+   * { //listener model
+   * next: callback,
+   * eror: errorCallback,
+   * complete: completedCallback
+   * }
+   */
