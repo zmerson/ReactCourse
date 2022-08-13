@@ -1,4 +1,8 @@
-import LandingPage from "./components/landing-page/landing-page.dcomponent";
+
+import Home from './routes/home/home.component'
+import { Routes, Route } from 'react-router-dom'
+import Navigation from './routes/navigation/navigation.component'
+import SignIn from './routes/sign-in/sign-in.component'
 
 const  App = () => {
 
@@ -29,10 +33,20 @@ const categories = [
     "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
   }
 ]
-
-  return (
-    <LandingPage categories={categories}/>
-    );
+const Shop = () => {
+  return <h1>shop</h1>
 }
+  return (
+    <Routes>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />}/>   //index is checking for the parent path, "path="/"" and it returns true or false
+        <Route path="shop" element={<h1>hello</h1>}/>
+        <Route path='sign-in' element={<SignIn />}/>
+      </Route>
+      
+      
+    </Routes>
+    );
+};
 
 export default App;
