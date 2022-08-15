@@ -1,4 +1,4 @@
-import LandingPage from "../../components/landing-page/landing-page.component";
+import LandingPage from "../../components/directory/directory.component";
 import { Outlet } from "react-router-dom";
 
 const  Home = () => {

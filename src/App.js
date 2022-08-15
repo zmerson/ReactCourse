@@ -38,7 +38,7 @@ const categories = [
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />}/>   //index is checking for the parent path, "path="/"" and it returns true or false
-        <Route path="shop" element={<Shop />}/>
+        <Route path="shop/*" element={<Shop />}/>
         <Route path='auth' element={<Authentication />}/>
         <Route path='checkout' element={<Checkout />}/>
       </Route>

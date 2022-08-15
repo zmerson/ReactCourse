@@ -5,15 +5,18 @@ import { getAuth,
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
     signOut,
-    onAuthStateChanged,} from 'firebase/auth'
+    onAuthStateChanged,
+    } from 'firebase/auth'
 // Your web app's Firebase configuration
 import {
     getFirestore,
     doc, //an instance of the document
     getDoc, //get data inside the document
     setDoc, //set data insid the document
-    
-
+    collection,
+    writeBatch,
+    query,
+    getDocs
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -40,8 +43,31 @@ const firebaseConfig = {
   export const signInWithGoogleRedirect = () => {//this line is just to rename the function in case we have more than one auth provider
         signInWithRedirect(auth, googleProvider);
   }
-
   
+  export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => { //create a new DB collection and fill with documents
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
+
+    objectsToAdd.forEach((object) => {
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        batch.set(docRef, object) //builds a new document with ojbect, later we post it
+    });
+    await batch.commit();
+    console.log('did the thing')
+  }
+  export const getCategoriesAndDocuments = async () =>{
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
+    const querySnapshot  = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+        const { title, items } = docSnapshot.data();
+        acc[title.toLowerCase()] = items;
+        return acc;
+
+    }, {})
+    return categoryMap;
+}
+
  export const createUserDocumentFromAuth = async (userAuth, additionInformation={DisplayName: 'mike'}) => {
     if (!userAuth) {console.log('no user auth :(');return;}
     const userDocRef = doc(db, 'users', userAuth.uid)
