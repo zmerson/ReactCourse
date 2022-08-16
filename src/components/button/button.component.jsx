@@ -1,3 +1,6 @@
+//three buttons in this app: defaul, inverted, and google-sign-in.
+//we'll modify the styling based on what button we need
+//and its stored in this re-usable component
 import {
   BaseButton,
   GoogleSignInButton,
@@ -17,9 +20,14 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
   }[buttonType]);
 
-const Button = ({ children, buttonType, ...otherProps }) => {
-  const CustomButton = getButton(buttonType);
-  return <CustomButton {...otherProps}>{children}</CustomButton>;
-};
 
-export default Button;
+const Button = ({children, buttonType, ...otherProps}) => {
+  const CustomButton = getButton(buttonType);
+
+  return (
+      <CustomButton  {...otherProps}>
+          {children}
+      </CustomButton>
+  )
+}
+export default Button
