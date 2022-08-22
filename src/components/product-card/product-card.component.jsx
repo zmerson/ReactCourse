@@ -17,13 +17,16 @@ const ProductCard = ({ product }) => {
       <img src={imageUrl} alt={`${name}`} />
       <div className='footer'>
         <span className='name'>{name}</span>
-        <span className='price'>{price}</span>
+        <div className='product-color-container'>
+        <a className="size" href="">sm</a><a className="size" href="">m</a><a>lg</a><a>xl</a>
+        </div>
+        <span className='price'>${price}</span>
       </div>
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
       >
-        Add to card
+        Add to Cart
       </Button>
     </div>
   );
